@@ -10,6 +10,42 @@ body {
     font-family: monospace;
 }
 
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+.fullScreenMsg {
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $backgroundColor;
+    color: $textColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadein 3s;
+    -moz-animation: fadein 3s; /* Firefox */
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+    -o-animation: fadein 3s; /* Opera */
+    p {
+        font-size: 3rem;
+    }
+}
+
 .container {
     width: 800px;
     margin: 0 auto;
@@ -17,6 +53,11 @@ body {
         text-align: center;
         font-size: 2rem;
         color: $textColor;
+    }
+    .gameInfo {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 25px 0 0;
     }
     .gameBoard {
         width: 100%;
@@ -73,5 +114,17 @@ body {
             transition: 0.5s;
             cursor: pointer;
         }
+    }
+}
+
+@include keyframes(fadein) {
+    0% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

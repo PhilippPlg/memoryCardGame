@@ -6,6 +6,30 @@ body {
   font-family: monospace;
 }
 
+.fullScreenMsg {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2f323a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  /* Firefox */
+  -webkit-animation: fadein 3s;
+  /* Safari and Chrome */
+  -o-animation: fadein 3s;
+  /* Opera */
+}
+.fullScreenMsg p {
+  font-size: 3rem;
+}
+
 .container {
   width: 800px;
   margin: 0 auto;
@@ -14,6 +38,11 @@ body {
   text-align: center;
   font-size: 2rem;
   color: #fff;
+}
+.container .gameInfo {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 25px 0 0;
 }
 .container .gameBoard {
   width: 100%;
@@ -68,6 +97,51 @@ body {
   background-color: teal;
   transition: 0.5s;
   cursor: pointer;
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */
