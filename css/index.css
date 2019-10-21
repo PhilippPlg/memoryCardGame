@@ -43,6 +43,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 0 25px 0 0;
+  height: 50px;
 }
 .container .gameBoard {
   width: 100%;
@@ -94,7 +95,7 @@ body {
   color: #fff;
 }
 .container button:hover {
-  background-color: teal;
+  background-color: #e4828d;
   transition: 0.5s;
   cursor: pointer;
 }

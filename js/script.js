@@ -12,6 +12,7 @@ let moveCount = 0;
 let scoreA = 0;
 let scoreB = 0;
 let aIsNext = true;
+let countdown = 10;
 
 const fullScreenMsg = (msg, callback) => {
     let e = document.createElement('div');
@@ -52,6 +53,12 @@ const shuffleCards = arr => {
     }
 };
 
+const setNextPlayer = () => {
+    aIsNext = !aIsNext;
+    document.querySelector('.next').innerHTML = aIsNext ? 'A' : 'B';
+    countdown = 11;
+};
+
 const checkPair = () => {
     if (moveCount == 2) {
         const flipped = [...document.querySelectorAll('.flipped')];
@@ -70,9 +77,9 @@ const checkPair = () => {
                 scoreB = scoreB + 1;
                 document.querySelector('.scoreB').innerHTML = scoreB;
             }
+            countdown = 11;
         } else {
-            aIsNext = !aIsNext;
-            document.querySelector('.next').innerHTML = aIsNext ? 'A' : 'B';
+            setTimeout(() => setNextPlayer(), 100);
         }
         setTimeout(() => {
             flipped.map(e => e.classList.remove('flipped'));
@@ -115,6 +122,7 @@ const restartGame = () => {
     moveCount = 0;
     scoreA = 0;
     scoreB = 0;
+    countdown = 11;
     document.querySelector('.gameBoard').innerHTML = '';
     document.querySelector('.scoreA').innerHTML = scoreA;
     document.querySelector('.scoreB').innerHTML = scoreB;
@@ -126,6 +134,22 @@ const setup = () => {
     shuffleCards(cards);
     appenCards(cards);
     document.querySelector('.next').innerHTML = aIsNext ? 'A' : 'B';
+    document.querySelector('.gameCountdown').innerHTML = 10;
 };
 
 setup();
+
+const startCountdown = () => {
+    setInterval(() => {
+        countdown = countdown - 1;
+        document.querySelector('.gameCountdown').innerHTML = countdown;
+        if (countdown === 0) {
+            setTimeout(() => {
+                setNextPlayer();
+                countdown = 11;
+            }, 999);
+        }
+    }, 1000);
+};
+
+startCountdown();

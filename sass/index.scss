@@ -1,6 +1,7 @@
 $backgroundColor: #2f323a;
 $cardColor: #3b3e49;
 $textColor: #fff;
+$primaryColor: #e4828d;
 
 body {
     width: 100%;
@@ -58,6 +59,7 @@ body {
         display: flex;
         justify-content: space-between;
         margin: 0 25px 0 0;
+        height: 50px;
     }
     .gameBoard {
         width: 100%;
@@ -110,7 +112,7 @@ body {
         background-color: $cardColor;
         color: $textColor;
         &:hover {
-            background-color: teal;
+            background-color: $primaryColor;
             transition: 0.5s;
             cursor: pointer;
         }
