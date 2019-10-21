@@ -9,9 +9,9 @@ const images = [
 const cards = [];
 const identifiedCards = [];
 let moveCount = 0;
-let score = 0;
-let moveLimit = 15;
-let currentMove = moveLimit;
+let scoreA = 0;
+let scoreB = 0;
+let aIsNext = true;
 
 const fullScreenMsg = (msg, callback) => {
     let e = document.createElement('div');
@@ -54,8 +54,6 @@ const shuffleCards = arr => {
 
 const checkPair = () => {
     if (moveCount == 2) {
-        currentMove = currentMove - 1;
-        document.querySelector('.moves').innerHTML = currentMove;
         const flipped = [...document.querySelectorAll('.flipped')];
         if (
             flipped[0].childNodes[1].childNodes[0].getAttribute('src') ===
@@ -65,18 +63,29 @@ const checkPair = () => {
                 e.classList.add('identified');
                 identifiedCards.push(e);
             });
-            score = score + 1;
-            document.querySelector('.score').innerHTML = score;
+            if (aIsNext) {
+                scoreA = scoreA + 1;
+                document.querySelector('.scoreA').innerHTML = scoreA;
+            } else {
+                scoreB = scoreB + 1;
+                document.querySelector('.scoreB').innerHTML = scoreB;
+            }
+        } else {
+            aIsNext = !aIsNext;
+            document.querySelector('.next').innerHTML = aIsNext ? 'A' : 'B';
         }
         setTimeout(() => {
             flipped.map(e => e.classList.remove('flipped'));
             moveCount = 0;
-            if (currentMove == 0) {
-                fullScreenMsg('Loser! Try is again!', () => {
-                    restartGame();
-                });
-            } else if (identifiedCards.length === images.length * 2) {
-                fullScreenMsg('Winner!', () => {
+            console.log(scoreA + ' ' + scoreB);
+            if (identifiedCards.length === images.length * 2) {
+                let msg =
+                    scoreA === scoreB
+                        ? 'TIE!'
+                        : scoreA > scoreB
+                        ? 'PLAYER A WINS!'
+                        : 'PLAYER B WINS';
+                fullScreenMsg(msg, () => {
                     restartGame();
                 });
             }
@@ -88,32 +97,27 @@ const appenCards = cards => {
     for (let x of cards) {
         document.querySelector('.gameBoard').appendChild(x);
         x.addEventListener('click', () => {
-            if (currentMove > 0) {
-                if (!x.classList.contains('identified')) {
-                    moveCount++;
-                    if (moveCount < 3) {
-                        x.classList.toggle('flipped');
-                    }
-                    checkPair();
+            if (!x.classList.contains('identified')) {
+                moveCount++;
+                if (moveCount < 3) {
+                    x.classList.toggle('flipped');
                 }
-            } else {
-                //fullScreenMsg('Loser! Try is again!');
-                fullScreenMsg('Loser! Try is again!', () => {
-                    restartGame();
-                });
+                checkPair();
             }
         });
     }
 };
 
 const restartGame = () => {
+    aIsNext = true;
     cards.splice(0);
+    identifiedCards.splice(0);
     moveCount = 0;
-    score = 0;
-    currentMove = moveLimit;
+    scoreA = 0;
+    scoreB = 0;
     document.querySelector('.gameBoard').innerHTML = '';
-    document.querySelector('.score').innerHTML = score;
-    document.querySelector('.moves').innerHTML = currentMove;
+    document.querySelector('.scoreA').innerHTML = scoreA;
+    document.querySelector('.scoreB').innerHTML = scoreB;
     setup();
 };
 
@@ -121,7 +125,7 @@ const setup = () => {
     generateCards();
     shuffleCards(cards);
     appenCards(cards);
-    document.querySelector('.moves').innerHTML = currentMove;
+    document.querySelector('.next').innerHTML = aIsNext ? 'A' : 'B';
 };
 
 setup();
