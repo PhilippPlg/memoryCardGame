@@ -1,0 +1,77 @@
+$backgroundColor: #2f323a;
+$cardColor: #3b3e49;
+$textColor: #fff;
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: $backgroundColor;
+    font-size: 10px;
+    font-family: monospace;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+    p {
+        text-align: center;
+        font-size: 2rem;
+        color: $textColor;
+    }
+    .gameBoard {
+        width: 100%;
+        min-height: 200px;
+        display: flex;
+        flex-flow: wrap;
+        .card {
+            min-width: 175px;
+            min-height: 175px;
+            margin: 0 25px 25px 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            div {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+            }
+            .front {
+                background-color: $cardColor;
+            }
+            .back {
+                background-color: teal;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: rotateY(180deg);
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+
+            &.flipped,
+            &.identified {
+                transform: rotateY(180deg);
+            }
+            &.identified {
+                cursor: default;
+            }
+        }
+    }
+    button {
+        padding: 9px 18px 9px 18px;
+        outline: none;
+        border: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        background-color: $cardColor;
+        color: $textColor;
+        &:hover {
+            background-color: teal;
+            transition: 0.5s;
+            cursor: pointer;
+        }
+    }
+}
